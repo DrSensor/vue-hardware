@@ -1,12 +1,14 @@
 <template>
   <div id="app">
+    <led />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import Led from '@/components/Led.vue'
 
-@Component({ components: {} })
+@Component({ components: { Led } })
 export default class App extends Vue {}
 </script>
 
