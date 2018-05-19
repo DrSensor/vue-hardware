@@ -9,15 +9,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { unit, createUnit } from 'mathjs'
+
+createUnit('px', { aliases: ['pixel', 'pixels', 'dot'] })
+const baseUnit = (unitName: string) => (value: string) => unit(value).equalBase(unit(unitName))
 
 @Component
 export default class Led extends Vue {
-  @Prop() scale!: string
-  @Prop() size!: string
+  @Prop({ validator: baseUnit('pixel/meter') }) scale!: string
+  @Prop({ validator: baseUnit('meter') }) size!: string
 
-  @Prop() inputVoltage!: string
-  @Prop() inputCurrent!: string
-  @Prop() maxPower!: string
+  @Prop({ validator: baseUnit('watt') }) maxPower!: string
+  @Prop({ validator: baseUnit('volt') }) inputVoltage!: string
+  @Prop({ validator: baseUnit('ampere') }) inputCurrent!: string
 
   get height(): number { return 232 }
   get brightness(): number { return 50 }
