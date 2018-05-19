@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <led />
+    <Led size="3mm" scale="10px/mm"
+        input-voltage="3.3V" input-current="50mA"
+        max-power="43mW" />
   </div>
 </template>
 
