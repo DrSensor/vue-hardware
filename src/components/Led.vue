@@ -1,5 +1,6 @@
 <template>
   <svg :height="height" viewBox="85 -12 108 232">
+    <text v-if="broken" x="103" y="45">BROKEN</text>
     <path id="bulb" fill="red" :fill-opacity="brightness" stroke="red" stroke-width="5" d="M 94.8 89 L 94.8 27.9 C 94.8 5.9 114.4 -12 138.5 -12 C 162.6 -12 182.3 5.9 182.3 27.9 L 182.3 89 L 94.8 89 Z " />
     <rect id="cathode" width="14" height="82" x="162" y="93" fill="orange" />
     <rect id="anode" width="14" height="126" x="103" y="93" fill="orange" />
@@ -24,7 +25,13 @@ export default class Led extends Vue {
   @Prop({ validator: baseUnit('volt'), default: '0V' }) inputVoltage!: string
   @Prop({ validator: baseUnit('ampere'), default: '0mA' }) inputCurrent!: string
 
+  broken: boolean = false
+
   get height(): number { return calculate(`1.3 * ${this.size}*${this.scale}`).toNumber('pixel') }
-  get brightness(): number { return calculate(`${this.inputVoltage}*${this.inputCurrent} / ${this.maxPower}`) }
+  get brightness(): number {
+    const result = calculate(`${this.inputVoltage}*${this.inputCurrent} / ${this.maxPower}`)
+    this.broken = (result > 1.00)
+    return this.broken ? 0 : result
+  }
 }
 </script>
