@@ -17,12 +17,12 @@ const calculate = (expression: string) => compile(expression).eval()
 
 @Component
 export default class Led extends Vue {
-  @Prop({ validator: baseUnit('pixel/meter') }) scale!: string
-  @Prop({ validator: baseUnit('meter') }) size!: string
+  @Prop({ validator: baseUnit('pixel/meter'), default: '10px/mm' }) scale!: string
+  @Prop({ validator: baseUnit('meter'), default: '3mm' }) size!: string
 
-  @Prop({ validator: baseUnit('watt') }) maxPower!: string
-  @Prop({ validator: baseUnit('volt') }) inputVoltage!: string
-  @Prop({ validator: baseUnit('ampere') }) inputCurrent!: string
+  @Prop({ validator: baseUnit('watt'), default: '43mW' }) maxPower!: string
+  @Prop({ validator: baseUnit('volt'), default: '0V' }) inputVoltage!: string
+  @Prop({ validator: baseUnit('ampere'), default: '0mA' }) inputCurrent!: string
 
   get height(): number { return calculate(`1.3 * ${this.size}*${this.scale}`).toNumber('pixel') }
   get brightness(): number { return calculate(`${this.inputVoltage}*${this.inputCurrent} / ${this.maxPower}`) }
