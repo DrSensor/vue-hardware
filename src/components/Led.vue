@@ -9,10 +9,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { unit, createUnit } from 'mathjs'
+import { unit, createUnit, compile } from 'mathjs'
 
 createUnit('px', { aliases: ['pixel', 'pixels', 'dot'] })
 const baseUnit = (unitName: string) => (value: string) => unit(value).equalBase(unit(unitName))
+const calculate = (expression: string) => compile(expression).eval()
 
 @Component
 export default class Led extends Vue {
@@ -23,7 +24,7 @@ export default class Led extends Vue {
   @Prop({ validator: baseUnit('volt') }) inputVoltage!: string
   @Prop({ validator: baseUnit('ampere') }) inputCurrent!: string
 
-  get height(): number { return 232 }
-  get brightness(): number { return 50 }
+  get height(): number { return calculate(`1.3 * ${this.size}*${this.scale}`).toNumber('pixel') }
+  get brightness(): number { return calculate(`${this.inputVoltage}*${this.inputCurrent} / ${this.maxPower}`) }
 }
 </script>
