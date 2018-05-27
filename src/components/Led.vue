@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { unit, createUnit, compile } from 'mathjs'
+import { unit, createUnit, compile } from '@/math'
 
 createUnit('px', { aliases: ['pixel', 'pixels', 'dot'] })
 const baseUnit = (unitName: string) => (value: string) => unit(value).equalBase(unit(unitName))
