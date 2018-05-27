@@ -1,23 +1,25 @@
-import { Unit } from 'mathjs';
+declare module 'mathjs/core' {
+  import { MathJsStatic } from 'mathjs'
+  namespace math {
+    interface CoreOptions {
+      epsilon: number
+      matrix: string
+      number: string
+      precision: number
+      predictable: boolean
+      randomSeed: string
+    }
 
-declare module 'mathjs' {
-  interface MathJSON {
-    mathjs?: string;
-    value: number;
-    unit: string;
-    fixPrefix?: boolean;
+    interface MathJsCore extends MathJsStatic {
+      import(module: any): any
+      config(options: CoreOptions): void
+    }
+
+    interface Core {
+      create(options?: math.CoreOptions): MathJsCore
+    }
   }
 
-  interface Unit {
-    clone(): Unit;
-    equalBase(unit: Unit): boolean;
-    equals(unit: Unit): boolean;
-    format(options: FormatOptions): string;
-    fromJSON(json: MathJSON): Unit;
-    toJSON(): MathJSON;
-    splitUnit(parts: ReadonlyArray<string>): Unit[];
-    toNumeric(unit: string): number | Fraction | BigNumber;
-    toSI(): Unit;
-    toString(): string;
-  }
+  const core: math.Core
+  export default core
 }

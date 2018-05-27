@@ -16,6 +16,8 @@
     "object-literal-sort-keys": false,
     "no-consecutive-blank-lines": false,
     "semicolon": false,
+    "arrow-parens": false,
+    "trailing-comma": false,
     "member-access": [true, "no-public"]
   }
 }
