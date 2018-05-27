@@ -10,11 +10,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { unit, createUnit, compile } from '@/math'
+import { unit, createUnit } from '@/math'
 
 createUnit('px', { aliases: ['pixel', 'pixels', 'dot'] })
 const baseUnit = (unitName: string) => (value: string) => unit(value).equalBase(unit(unitName))
-const calculate = (expression: string) => compile(expression).eval()
 
 @Component
 export default class Led extends Vue {
@@ -27,9 +26,9 @@ export default class Led extends Vue {
 
   broken: boolean = false
 
-  get height(): number { return calculate(`1.3 * ${this.size}*${this.scale}`).toNumber('pixel') }
+  get height(): number { return 1.3 * unit(this.size).toNumber('mm') * unit(this.scale).toNumber('px/mm') }
   get brightness(): number {
-    const result = calculate(`${this.inputVoltage}*${this.inputCurrent} / ${this.maxPower}`)
+    const result = unit(this.inputVoltage).toNumber('volt') * unit(this.inputCurrent).toNumber('ampere') / unit(this.maxPower).toNumber('watt')
     this.broken = (result > 1.00)
     return this.broken ? 0 : result
   }

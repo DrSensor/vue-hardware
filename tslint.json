@@ -18,6 +18,7 @@
     "semicolon": false,
     "arrow-parens": false,
     "trailing-comma": false,
+    "max-line-length": [true, 150],
     "member-access": [true, "no-public"]
   }
 }
