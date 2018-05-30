@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import Led from '@/components/Led.vue'
+import Led from '@/components/Led/Led.vue'
 
 @Component({ components: { Led } })
 export default class App extends Vue {}
