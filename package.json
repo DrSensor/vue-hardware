@@ -8,16 +8,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "mathjs": "^4.3.0",
+    "mathjs": "^4.4.1",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
     "vue-property-decorator": "^6.1.0"
   },
   "devDependencies": {
     "@types/mathjs": "^3.21.0",
-    "@vue/cli-plugin-babel": "^3.0.0-beta.11",
-    "@vue/cli-plugin-typescript": "^3.0.0-beta.11",
-    "@vue/cli-service": "^3.0.0-beta.11",
+    "@vue/cli-plugin-babel": "^3.0.0-beta.14",
+    "@vue/cli-plugin-typescript": "^3.0.0-beta.14",
+    "@vue/cli-service": "^3.0.0-beta.14",
     "lint-staged": "^7.1.2",
     "vue-template-compiler": "^2.5.16"
   },
