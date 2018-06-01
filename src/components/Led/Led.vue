@@ -26,9 +26,28 @@ export default class Led extends Vue {
 
   broken: boolean = false
 
-  get height(): number { return 1.3 * unit(this.size).toNumber('mm') * unit(this.scale).toNumber('px/mm') }
+  private led: any = {
+    brightness: (Vin: number, Iin: number, Pmax: number) => Number(),
+    diameter: (size: number, scale: number) => Number(),
+  }
+
+  async beforeCreate() {
+    const loadWasm = await import('./led.rs')
+    const wasm = await loadWasm.default()
+    this.led = wasm.instance.exports
+  }
+
+  get height(): number { return this.led.diameter(
+    unit(this.size).toNumber('millimeter'),
+    unit(this.scale).toNumber('pixel/millimeter') * 1.3
+  ) }
+
   get brightness(): number {
-    const result = unit(this.inputVoltage).toNumber('volt') * unit(this.inputCurrent).toNumber('ampere') / unit(this.maxPower).toNumber('watt')
+    const result = this.led.brightness(
+      unit(this.inputVoltage).toNumber('volt'),
+      unit(this.inputCurrent).toNumber('ampere'),
+      unit(this.maxPower).toNumber('watt')
+    )
     this.broken = (result > 1.00)
     return this.broken ? 0 : result
   }
