@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Led input-voltage="5.3V" input-current="13mA" />
+    <Led input-voltage="3.3V" input-current="7mA" />
   </div>
 </template>
 
